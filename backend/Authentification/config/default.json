@@ -1,0 +1,4 @@
+{
+    "mongoUri":"mongodb+srv://yosri:yosri@cluster0.9r0ol.mongodb.net/LoginDb?retryWrites=true&w=majority",
+    "secretOrkey":"my secret"
+}
