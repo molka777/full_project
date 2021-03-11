@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
 
     try {
         const searchRes = await User.findOne({ email })
-        if (searchRes) return res.status(401).json({ msg: `User already exists , Use a different email` })
+        if (searchRes) return res.status(401).json({ msg: `Utilisateur existant , utiliser un autre E-mail` })
 
         const newUser = new User({
             name,
@@ -34,9 +34,9 @@ exports.login = async (req, res) => {
     const { email, password } = req.body
     try {
         const user = await User.findOne({ email });
-        if (!user) return res.status(404).json({ msg: `bad credentiels ! ` });
+        if (!user) return res.status(404).json({ msg: `Votre email ou mot de passe est faux ` });
         const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch) return res.status(401).json({ msg: `bad credentiel !` });
+        if (!isMatch) return res.status(401).json({ msg: `Votre email ou mot de passe est faux` });
 
         const payload = {
             id: user._id,
