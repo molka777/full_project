@@ -7,11 +7,15 @@ import store from './JS/store'
 import 'bootstrap/dist/css/bootstrap.css'
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+      <App />
     </Provider>
+
+
+
   </React.StrictMode>,
   document.getElementById('root')
 );
