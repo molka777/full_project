@@ -53,4 +53,18 @@ exports.login = async (req, res) => {
         res.status(500).json({ errors: error });
 
     }
+};
+
+exports.updateUser = async (req, res) => {
+    try {
+        const { name, email, phoneNumber } = req.body;
+
+        await User.findByIdAndUpdate({ _id: req.params.id },
+            { name, email, phoneNumber }
+        );
+
+        res.status(201).json({ msg: "L'utilisateur a été modifié avec succès" });
+    } catch (err) {
+        return res.status(500).json({ msg: err.message });
+    }
 }
