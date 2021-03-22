@@ -9,6 +9,9 @@ import {
     REGISTER_SUCCESS,
     REGISTER_USER,
     LOGOUT,
+    UPDATE_FAIL,
+    UPDATE_SUCCESS,
+    UPDATE_USER
 }
     from "../constants/action-types";
 
@@ -84,7 +87,28 @@ const userReducer = (state = initialState, { type, payload }) => {
                 loading: false,
                 isAuth: false,
                 user: null,
-                token : null ,
+                token: null,
+            }
+
+        case UPDATE_USER:
+            return {
+                ...state,
+                loading: true,
+            }
+
+        case UPDATE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                user: payload
+
+            }
+
+        case UPDATE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                errors: payload,
             }
 
         default:

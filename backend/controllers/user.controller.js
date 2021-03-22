@@ -62,9 +62,45 @@ exports.updateUser = async (req, res) => {
         await User.findByIdAndUpdate({ _id: req.params.id },
             { name, email, phoneNumber }
         );
+        var updated;
 
-        res.status(201).json({ msg: "L'utilisateur a été modifié avec succès" });
+        return res.status(201).json({
+            msg: "L'utilisateur a été modifié avec succès",
+            user: user
+        });
+
+
     } catch (err) {
         return res.status(500).json({ msg: err.message });
     }
+
+    // // after the basic validation, now check the data from the database
+    // try {
+    //     const userEmail = await User.findOne({ email });
+    //     if (!_.isEmpty(userEmail)) {
+    //         return res.status(401).json({
+    //             status: "error",
+    //             message: "Email already in use"
+    //         });
+    //     }
+
+    //     const userNameExist = await User.findOne({ name });
+    //     if (!_.isEmpty(userNameExist)) {
+    //         return res.status(401).json({
+    //             status: "error",
+    //             message: "Username is already taken."
+    //         })
+    //     }
+
+    //     // update the database
+    //     await User.updateOne({ _id: req.params.id } , { req.body});
+    //     res.status(201).json({
+    //         status: "ok",
+    //         message: "Fields updated successfully!",
+    //     })
+    // } catch (e) {
+    //     console.log(e)
+    // }
+    // }
+
 }

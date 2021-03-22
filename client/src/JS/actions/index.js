@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { GET_PROFILE, GET_PROFILE_FAIL, GET_PROFILE_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGIN_USER, LOGOUT, REGISTER_FAIL, REGISTER_SUCCESS, REGISTER_USER } from "../constants/action-types"
+import {
+    GET_PROFILE, GET_PROFILE_FAIL, GET_PROFILE_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGIN_USER, LOGOUT, REGISTER_FAIL,
+    REGISTER_SUCCESS, REGISTER_USER, UPDATE_FAIL,
+    UPDATE_SUCCESS, UPDATE_USER
+} from "../constants/action-types"
 
 const register = newUser => async dispatch => {
     dispatch({
@@ -68,8 +72,28 @@ export const getProfile = () => async dispatch => {
 }
 
 export const logout = () => dispatch => {
-     localStorage.removeItem('token')
+    localStorage.removeItem('token')
     dispatch({
         type: LOGOUT,
     });
 }
+
+//Update User
+export const updateProfile = (data, id) => async dispatch => {
+
+    try {
+        dispatch({
+            type: UPDATE_USER
+        });
+        const { data } = await axios.put(`/user/profile/${id}`, data)
+        dispatch({
+            type: UPDATE_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_FAIL,
+        })
+    }
+}
+

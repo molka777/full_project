@@ -20,6 +20,7 @@ function App() {
         <Route exact path='/' component={Signup} />
         <Route exact path='/login' component={Signin} />
         <Route exact path='/profile' component={Profile} />
+
       </AlertProvider>
 
 
