@@ -11,7 +11,10 @@ import {
     LOGOUT,
     UPDATE_FAIL,
     UPDATE_SUCCESS,
-    UPDATE_USER
+    UPDATE_USER,
+    FETCH_ALL_USERS,
+    FETCH_ALL_USERS_SUCCESS,
+    FETCH_ALL_USERS_FAIL
 }
     from "../constants/action-types";
 
@@ -110,6 +113,22 @@ const userReducer = (state = initialState, { type, payload }) => {
                 loading: false,
                 errors: payload,
             }
+
+        case FETCH_ALL_USERS:
+            return {
+                isLoading: true,
+                users: [],
+            };
+        case FETCH_ALL_USERS_SUCCESS:
+            return {
+                isLoading: false,
+                users: payload.users,
+            };
+        case FETCH_ALL_USERS_FAIL:
+            return {
+                isLoading: false,
+                error: payload,
+            };
 
         default:
             return state;

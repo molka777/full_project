@@ -1,8 +1,23 @@
 import axios from 'axios'
+
 import {
-    GET_PROFILE, GET_PROFILE_FAIL, GET_PROFILE_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGIN_USER, LOGOUT, REGISTER_FAIL,
-    REGISTER_SUCCESS, REGISTER_USER, UPDATE_FAIL,
-    UPDATE_SUCCESS, UPDATE_USER
+    GET_PROFILE,
+    GET_PROFILE_FAIL,
+    GET_PROFILE_SUCCESS,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    LOGIN_USER,
+    LOGOUT,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS,
+    REGISTER_USER,
+    UPDATE_FAIL,
+    UPDATE_SUCCESS,
+    UPDATE_USER,
+    FETCH_ALL_USERS,
+    FETCH_ALL_USERS_SUCCESS,
+    FETCH_ALL_USERS_FAIL
+
 } from "../constants/action-types"
 
 const register = newUser => async dispatch => {
@@ -85,6 +100,7 @@ export const updateProfile = (data, id) => async dispatch => {
         dispatch({
             type: UPDATE_USER
         });
+
         const { data } = await axios.put(`/user/profile/${id}`, data)
         dispatch({
             type: UPDATE_SUCCESS,
@@ -94,6 +110,22 @@ export const updateProfile = (data, id) => async dispatch => {
         dispatch({
             type: UPDATE_FAIL,
         })
+    }
+}
+
+export const getUsers = () => async (dispatch) => {
+    dispatch({ type: FETCH_ALL_USERS });
+    try {
+        const { data } = await axios.get('/user/users');
+        dispatch({
+            type: FETCH_ALL_USERS_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: FETCH_ALL_USERS_FAIL,
+            payload: error.response.data
+        });
     }
 }
 

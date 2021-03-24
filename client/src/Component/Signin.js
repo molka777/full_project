@@ -4,8 +4,21 @@ import { Redirect } from 'react-router';
 import { login } from '../JS/actions'
 //Boostrap
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { FacebookLoginButton } from "react-social-login-buttons";
+import {
+  Container,
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Row,
+  Col,
+} from "reactstrap"
 
 const Signin = () => {
   const dispatch = useDispatch()
@@ -25,44 +38,153 @@ const Signin = () => {
   ) : loading ? (
     <h1>Please wait ....</h1>
   ) : (
-    (<Form className="login-form">
-      <h1>
-        <span className="font-weight-bold">mywebsite</span>.com
-        </h1>
-      <h2 className="text-center">Marhaba ! </h2>
-
-      <FormGroup>
-        <Label>Email</Label>
-        <Input
-          type="email"
-          placeholder="Email"
-          onChange={e => setEmail(e.target.value)}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>Mot de passe</Label>
-        <Input
-          type="Password"
-          placeholder="Mot de passe"
-          onChange={e => setPassword(e.target.value)}
-        />
-      </FormGroup>
-
-      <Button className="btn-lg btn-dark btn-block" onClick={loginUser}>Valider</Button>
-      <div className="text-center pt-3">Continuer avec votre social media</div>
-      <FacebookLoginButton className="mt-3 mb-3" />
-      <div className="text-center">
-        <a href="sign-up">Se Connecter</a>
-        <span className="p-2">|</span>
-        <a href="sign-up">Mot de passe oublié </a>
-      </div>
-
-
-
-
-
-    </Form>
+    (
+      <div className="header bg-gradient-info py-7 py-lg-8">
+        <Container>
+          <div className="header-body text-center mb-7">
+            <Row className="justify-content-center">
+              <Col lg="5" md="6">
+                <h1 className="text-white">Marhaba!</h1>
+                <p className="text-lead text-light">
+                  Welcome to my <strong>Website</strong>.com
+                  </p>
+              </Col>
+            </Row>
+          </div>
+        </Container>
+        <div className="separator separator-bottom separator-skew zindex-100">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            version="1.1"
+            viewBox="0 0 2560 100"
+            x="0"
+            y="0"
+          >
+            <polygon
+              className="fill-default"
+              points="2560 0 2560 100 0 100"
+            />
+          </svg>
+        </div>
+        <Col lg="5" md="7 center">
+          <Card className="bg-secondary shadow border-0">
+            <CardHeader className="bg-transparent pb-5">
+              <div className="text-muted text-center mt-2 mb-3">
+                <small>Sign in with</small>
+              </div>
+              <div className="btn-wrapper text-center">
+                <Button
+                  className="btn-neutral btn-icon"
+                  color="default"
+                  href="#pablo"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <span className="btn-inner--icon">
+                    <img
+                      alt="..."
+                      src={
+                        require("../Assets/img/icons/common/github.svg")
+                          .default
+                      }
+                    />
+                  </span>
+                  <span className="btn-inner--text">Github</span>
+                </Button>
+                <Button
+                  className="btn-neutral btn-icon"
+                  color="default"
+                  href="#pablo"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <span className="btn-inner--icon">
+                    <img
+                      alt="..."
+                      src={
+                        require("../Assets/img/icons/common/google.svg")
+                          .default
+                      }
+                    />
+                  </span>
+                  <span className="btn-inner--text">Google</span>
+                </Button>
+              </div>
+            </CardHeader>
+            <CardBody className="px-lg-5 py-lg-5">
+              <div className="text-center text-muted mb-4">
+                <small>Or sign in with credentials</small>
+              </div>
+              <Form role="form">
+                <FormGroup className="mb-3">
+                  <InputGroup className="input-group-alternative">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="ni ni-email-83" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      type="email"
+                      placeholder="Email"
+                      onChange={e => setEmail(e.target.value)}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <FormGroup>
+                  <InputGroup className="input-group-alternative">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="ni ni-lock-circle-open" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      onChange={e => setPassword(e.target.value)}
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <div className="custom-control custom-control-alternative custom-checkbox">
+                  <input
+                    className="custom-control-input"
+                    id=" customCheckLogin"
+                    type="checkbox"
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor=" customCheckLogin"
+                  >
+                    <span className="text-muted">Remember me</span>
+                  </label>
+                </div>
+                <div className="text-center">
+                  <Button className="my-4" color="primary" type="button" onClick={loginUser}>
+                    Sign in
+                </Button>
+                </div>
+              </Form>
+            </CardBody>
+          </Card>
+          <Row className="mt-3">
+            <Col xs="6">
+              <a
+                className="text-light"
+                href="#pablo"
+                onClick={(e) => e.preventDefault()}
+              >
+                <small>Forgot password?</small>
+              </a>
+            </Col>
+            <Col className="text-right" xs="6">
+              <a
+                className="text-light"
+                href="#pablo"
+                onClick={(e) => e.preventDefault()}
+              >
+                <small>Create new account</small>
+              </a>
+            </Col>
+          </Row>
+        </Col></div>
     ))
 }
 

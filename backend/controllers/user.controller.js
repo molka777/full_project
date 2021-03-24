@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 const secretOrkey = config.get('secretOrkey');
 
+//Register User
 exports.register = async (req, res) => {
     const { name, email, password, phoneNumber } = req.body;
 
@@ -15,7 +16,8 @@ exports.register = async (req, res) => {
             name,
             email,
             password,
-            phoneNumber
+            phoneNumber,
+
         });
 
         const salt = await bcrypt.genSalt(10);
@@ -29,6 +31,8 @@ exports.register = async (req, res) => {
         res.status(500).json({ errors: error });
     }
 };
+
+//Login User
 
 exports.login = async (req, res) => {
     const { email, password } = req.body
@@ -54,7 +58,7 @@ exports.login = async (req, res) => {
 
     }
 };
-
+//Update User
 exports.updateUser = async (req, res) => {
     try {
         const { name, email, phoneNumber } = req.body;
@@ -104,3 +108,27 @@ exports.updateUser = async (req, res) => {
     // }
 
 }
+
+//Handle user roles
+exports.authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(
+                res.status(403).json({ msg: `Role (${req.user.role}) is not allowed to acces this resource` })
+            )
+        }
+        next()
+    }
+}
+
+//Get all users
+exports.allUsers = async (req, res) => {
+    const users = await User.find();
+    res.status(200).json({
+        succes: true,
+        users
+    })
+}
+
+
+

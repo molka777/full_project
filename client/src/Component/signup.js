@@ -3,12 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import register from "../JS/actions/index";
 //Bootstrap
-// import "./App.css"
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { FacebookLoginButton, GoogleLoginButton, } from "react-social-login-buttons";
 import { useAlert } from "react-alert";
-// import userReducer from '../JS/reducers/userReducer';
+import {
+  Container,
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Row,
+  Col,
+} from "reactstrap"
 
 const Signup = () => {
   const loading = useSelector((state) => state.userReducer.loading);
@@ -18,10 +29,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(null);
-  // const reduxData = useSelector((state) = state.userReducer.errors)
   const alert = useAlert();
 
-  // const rm = reduxData.errors[0];
 
   const addUser = (e) => {
     e.preventDefault();
@@ -34,6 +43,7 @@ const Signup = () => {
       })
     );
   };
+
 
   function handleSubmit(e) {
     if (!email && !name && !phoneNumber)
@@ -52,68 +62,184 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <div className="main-content">
       {loading ? (
         <h1>Attendez ...</h1>
       ) : user ? (
         <Redirect to="/login" />
       ) : (
-        <Form className="login-form">
-          <h1>
-            <span className="font-weight-bold">mywebsite</span>.com
-          </h1>
-
-          <h2 className="text-center">Marhaba ! </h2>
-          <FormGroup>
-            <Label>Email</Label>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Label>Nom & prénom</Label>
-            <Input
-              type="name"
-              name="name"
-              placeholder="Nom et prénom"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Label>Tel°</Label>
-            <Input
-              type="text"
-              placeholder="Numéro téléphone"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Label>Mot de passe</Label>
-            <Input
-              type="Password"
-              placeholder="Mot de passe"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </FormGroup>
-
-          <Button className="btn-lg btn-dark btn-block" onClick={handleSubmit}>
-            Valider
-          </Button>
-          <div className="text-center pt-3"> Facebook Ou Google</div>
-          <FacebookLoginButton className="mt-3 mb-3" />
-          <GoogleLoginButton className="mt-3 mb-3" />
-          <div className="text-center">
-            <a href="sign-up">Se Connecter</a>
-            <span className="p-2">|</span>
-            <a href="sign-up">Mot de passe oublié </a>
+        <div className="header bg-gradient-info py-7 py-lg-8">
+          <Container>
+            <div className="header-body text-center mb-7">
+              <Row className="justify-content-center">
+                <Col lg="5" md="6">
+                  <h1 className="text-white">Marhaba!</h1>
+                  <p className="text-lead text-light">
+                    Welcome to my <strong>Website</strong>.com
+                  </p>
+                </Col>
+              </Row>
+            </div>
+          </Container>
+          <div className="separator separator-bottom separator-skew zindex-100">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="fill-default"
+                points="2560 0 2560 100 0 100"
+              />
+            </svg>
           </div>
-        </Form>
+
+          <Col lg="5" md="8 center">
+            <Card className="bg-secondary shadow border-0">
+              <CardHeader className="bg-transparent pb-5">
+                <div className="text-muted text-center mt-2 mb-4">
+                  <small>Sign up with</small>
+                </div>
+                <div className="text-center">
+                  <Button
+                    className="btn-neutral btn-icon mr-4"
+                    color="default"
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <span className="btn-inner--icon">
+                      <img
+                        alt="..."
+                        src={
+                          require("../Assets/img/icons/common/github.svg")
+                            .default
+                        }
+                      />
+                    </span>
+                    <span className="btn-inner--text">Github</span>
+                  </Button>
+                  <Button
+                    className="btn-neutral btn-icon"
+                    color="default"
+                    href="#pablo"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    <span className="btn-inner--icon">
+                      <img
+                        alt="..."
+                        src={
+                          require("../Assets/img/icons/common/google.svg")
+                            .default
+                        }
+                      />
+                    </span>
+                    <span className="btn-inner--text">Google</span>
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardBody className="px-lg-5 py-lg-5">
+                <div className="text-center text-muted mb-4">
+                  <small>Or sign up with credentials</small>
+                </div>
+                <Form role="form">
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="ni ni-hat-3" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="name"
+                        name="name"
+                        placeholder="Nom et prénom"
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="ni ni-email-83" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="ni ni-lock-circle-open" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="text"
+                        placeholder="Numéro téléphone"
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="ni ni-lock-circle-open" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="Password"
+                        placeholder="Mot de passe"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  <div className="text-muted font-italic">
+                    <small>
+                      password strength:{" "}
+                      <span className="text-success font-weight-700">strong</span>
+                    </small>
+                  </div>
+                  <Row className="my-4">
+                    <Col xs="12">
+                      <div className="custom-control custom-control-alternative custom-checkbox">
+                        <input
+                          className="custom-control-input"
+                          id="customCheckRegister"
+                          type="checkbox"
+                        />
+                        <label
+                          className="custom-control-label"
+                          htmlFor="customCheckRegister"
+                        >
+                          <span className="text-muted">
+                            I agree with the{" "}
+                            <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                              Privacy Policy
+                        </a>
+                          </span>
+                        </label>
+                      </div>
+                    </Col>
+                  </Row>
+                  <div className="text-center">
+                    <Button className="mt-4" color="primary" type="button" onClick={handleSubmit}>
+                      Create account
+                </Button>
+                  </div>
+                </Form>
+              </CardBody>
+            </Card>
+          </Col></div>
       )}
     </div>
   );
