@@ -60,10 +60,12 @@ exports.login = async (req, res) => {
 };
 //Update User
 exports.updateUser = async (req, res) => {
+    console.log(req.body)
+    console.log(req.params.id)
     try {
         const { name, email, phoneNumber } = req.body;
 
-        await User.findByIdAndUpdate({ _id: req.params.id },
+        await User.findByIdAndUpdate(req.params.id,
             { name, email, phoneNumber }
         );
         var updated;

@@ -15,7 +15,7 @@ Router.get('/current', isAuth(), (req, res) => {
 
 Router.put('/profile/:id', updateUser)
 
-Router.get('/users', allUsers)
+Router.get('/users', authorizeRoles(`admin`), allUsers)
 
 
 module.exports = Router;

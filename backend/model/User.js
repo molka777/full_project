@@ -19,6 +19,11 @@ const userSchema = mongoose.Schema({
     role: {
         type: String,
         default: 'user'
+    },
+    prefernces: {
+        themes: [String],
+        difficulies: [String],
+        phobies: [String]
     }
 })
 
