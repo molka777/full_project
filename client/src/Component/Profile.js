@@ -18,21 +18,23 @@ const Profile = ({ match }) => {
   const alert = useAlert();
 
 
-  // const updateUser = (e) => {
-  //   e.preventDefault();
-  //   dispatch(
-  //     updateProfile({
-  //       name,
-  //       email,
-  //       phoneNumber,
-  //     })
-  //   );
-  // };
+  const handleSubmit = (e) => {
+    console.log(user);
+    e.preventDefault();
+    dispatch(
+
+      updateProfile(user._id, {
+        name,
+        email,
+        phoneNumber,
+      })
+    );
+  };
 
   useEffect(() => {
     dispatch(getProfile());
 
-  }, [dispatch, match.params.id]);
+  }, [dispatch]);
 
   // if (isUpdated) {
   //   alert.succes("Votre profil a été modifié ")
@@ -164,10 +166,7 @@ const Profile = ({ match }) => {
                     </div>
                   </div>
                   <Button variant="info" style={{ marginLeft: "85%" }} onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(
-                      updateProfile(match.params.id)
-                    );
+                    handleSubmit(e)
                     setEdit(false)
                   }}>Enregistrer</Button>
 

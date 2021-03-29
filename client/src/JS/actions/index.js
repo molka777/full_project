@@ -94,19 +94,20 @@ export const logout = () => dispatch => {
 }
 
 //Update User
-export const updateProfile = (data, id) => async dispatch => {
-
+export const updateProfile = (id, updatedProfile) => async dispatch => {
+    console.log(id);
     try {
         dispatch({
             type: UPDATE_USER
         });
 
-        const { data } = await axios.put(`/user/profile/${id}`, data)
+        const { data } = await axios.put(`/user/profile/${id}`, updatedProfile)
         dispatch({
             type: UPDATE_SUCCESS,
             payload: data
         });
     } catch (error) {
+        console.log(error)
         dispatch({
             type: UPDATE_FAIL,
         })
