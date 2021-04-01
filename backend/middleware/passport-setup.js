@@ -11,7 +11,7 @@ const opts = {
 
 passport.initialize();
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
-    console.log(jwt_payload);
+    // console.log(jwt_payload);
     const { id } = jwt_payload
     try {
         const user = await User.findById(id).select('-password');
