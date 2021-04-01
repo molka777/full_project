@@ -8,6 +8,8 @@ import Admin from "./Component/Admin";
 import "./App.css"
 import { positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import Preferences from "./Component/Preferences";
+
 
 function App() {
   const options = {
@@ -23,6 +25,7 @@ function App() {
         <Route exact path='/login' component={Signin} />
         <Route exact path='/profile' component={Profile} />
         <Route exact path='/admin' component={Admin} />
+        <Route exact path='/preferences' component={Preferences} />
 
 
       </AlertProvider>
