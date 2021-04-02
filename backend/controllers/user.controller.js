@@ -1,9 +1,9 @@
-const User = require("../model/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const Preferences = require("../model/Preferences");
-const secretOrkey = config.get("secretOrkey");
+const User = require('../model/User');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const Preferences = require('../model/Preferences');
+const secretOrkey = config.get('secretOrkey');
 
 //Register User
 exports.register = async (req, res) => {
@@ -178,6 +178,10 @@ exports.addPreferences = async (req, res) => {
 exports.addMyPreferences = async (req, res) => {
   const userId = req.params.id;
   const { preferenceId, preferenceName } = req.body;
+  console.log(
+    '🚀 ~ file: user.controller.js ~ line 181 ~ exports.addMyPreferences= ~ preferenceId',
+    preferenceId
+  );
   // console.log(req.body);
 
   try {
@@ -193,9 +197,9 @@ exports.addMyPreferences = async (req, res) => {
     const user = await User.findByIdAndUpdate(userId, searchedUser, {
       new: true,
       useFindAndModify: false,
-    }).populate("preferences", "themes");
+    }).populate('preferences', 'themes');
 
-    res.send(user.myPreferences);
+    return res.status(200).json(user);
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: error });

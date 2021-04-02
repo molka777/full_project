@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 import {
   GET_PROFILE,
@@ -21,14 +21,14 @@ import {
   ADD_PREFERENCES,
   ADD_PREFERENCES_SUCCESS,
   ADD_PREFERENCES_FAIL,
-} from "../constants/action-types";
+} from '../constants/action-types';
 
 const register = (newUser) => async (dispatch) => {
   dispatch({
     type: REGISTER_USER,
   });
   try {
-    const addRes = await axios.post("/user/register", newUser);
+    const addRes = await axios.post('/user/register', newUser);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: addRes.data,
@@ -49,8 +49,8 @@ export const login = (cred) => async (dispatch) => {
   });
 
   try {
-    const loginRes = await axios.post("/user/login", cred);
-    localStorage.setItem("token", loginRes.data.token);
+    const loginRes = await axios.post('/user/login', cred);
+    localStorage.setItem('token', loginRes.data.token);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: loginRes.data,
@@ -64,7 +64,7 @@ export const login = (cred) => async (dispatch) => {
 };
 
 export const getProfile = () => async (dispatch) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const config = {
     headers: {
       Authorization: token,
@@ -74,7 +74,7 @@ export const getProfile = () => async (dispatch) => {
     type: GET_PROFILE,
   });
   try {
-    const isAuth = await axios.get("/user/current", config);
+    const isAuth = await axios.get('/user/current', config);
     dispatch({
       type: GET_PROFILE_SUCCESS,
       payload: isAuth.data,
@@ -88,7 +88,7 @@ export const getProfile = () => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("token");
+  localStorage.removeItem('token');
   dispatch({
     type: LOGOUT,
   });
@@ -116,7 +116,7 @@ export const updateProfile = (id, updatedProfile) => async (dispatch) => {
 export const getUsers = () => async (dispatch) => {
   dispatch({ type: FETCH_ALL_USERS });
   try {
-    const { data } = await axios.get("/user/users");
+    const { data } = await axios.get('/user/users');
     dispatch({
       type: FETCH_ALL_USERS_SUCCESS,
       payload: data,
@@ -131,7 +131,7 @@ export const getUsers = () => async (dispatch) => {
 
 export const seePreferences = () => async (dispatch) => {
   try {
-    const preferences = await axios.get("/user/preferences");
+    const preferences = await axios.get('/user/preferences');
     dispatch({
       type: SEE_ALL_PREFERENCES,
       payload: preferences.data,
@@ -146,15 +146,18 @@ export const addPreferences = (userId, preferenceId) => async (dispatch) => {
     type: ADD_PREFERENCES,
   });
   try {
-    const user = await axios.put(`/mypreferences/${userId}`, preferenceId);
+    const { data } = await axios.put(`/user/mypreferences/${userId}`, {
+      preferenceId,
+    });
     dispatch({
       type: ADD_PREFERENCES_SUCCESS,
-      payload: user.data,
+      payload: data,
     });
   } catch (error) {
+    console.error(error);
     dispatch({
       type: ADD_PREFERENCES_FAIL,
-      payload: error.response.data,
+      payload: error.response,
     });
   }
 };

@@ -19,7 +19,7 @@ import {
   ADD_PREFERENCES,
   ADD_PREFERENCES_SUCCESS,
   ADD_PREFERENCES_FAIL,
-} from "../constants/action-types";
+} from '../constants/action-types';
 
 const initialState = {
   loading: false,
@@ -152,7 +152,10 @@ const userReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        preferences: payload.preferences,
+        user: {
+          ...state.user,
+          myPreferences: payload.myPreferences,
+        },
       };
 
     case ADD_PREFERENCES_FAIL:
