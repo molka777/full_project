@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
   myPreferences: [
     {
       type: ObjectId,
-      ref: "themes",
+      ref: "preferences",
     },
   ],
 });

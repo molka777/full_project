@@ -2,7 +2,7 @@ const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const Themes = require("../model/Themes");
+const Preferences = require("../model/Preferences");
 const secretOrkey = config.get("secretOrkey");
 
 //Register User
@@ -139,8 +139,8 @@ exports.allUsers = async (req, res) => {
 
 exports.seePreferences = async (req, res) => {
   try {
-    const preferences = await Themes.find();
-    res.send(preferences);
+    const allPreferences = await Preferences.find();
+    res.send(allPreferences);
   } catch (error) {
     console.error(error);
     res.status(500).json({ errors: error.message });
@@ -150,10 +150,11 @@ exports.seePreferences = async (req, res) => {
 exports.addPreferences = async (req, res) => {
   const { themes, difficulties, phobies } = req.body;
   try {
-    const newPref = new Themes({
+    const newPref = new Preferences({
       themes,
       difficulties,
       phobies,
+      usersID: req.user,
     });
     await newPref.save();
     res.status(201).json(newPref);
@@ -176,18 +177,25 @@ exports.addPreferences = async (req, res) => {
 //Add Preferences to a User (Themes)
 exports.addMyPreferences = async (req, res) => {
   const userId = req.params.id;
-  const { preferenceId } = req.body;
-  console.log(req.body);
+  const { preferenceId, preferenceName } = req.body;
+  // console.log(req.body);
+
   try {
     const searchedUser = await User.findOne({ _id: userId });
-    console.log(searchedUser);
     searchedUser.myPreferences.push(preferenceId);
+
+    // const searchPref = await Preferences.find({});
+    // console.log(searchPref);
+
+    // const searchPref = Preferences.find({});
+    // await searchPref.forEach((doc) => console.log(doc));
+
     const user = await User.findByIdAndUpdate(userId, searchedUser, {
       new: true,
       useFindAndModify: false,
-    }).populate("preferenceId", "themes");
+    }).populate("preferences", "themes");
 
-    res.send(user);
+    res.send(user.myPreferences);
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: error });
