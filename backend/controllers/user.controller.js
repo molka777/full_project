@@ -78,6 +78,7 @@ exports.updateUser = async (req, res) => {
       city,
       aboutMe,
       postalCode,
+      myPreferences,
     } = req.body;
 
     await User.findByIdAndUpdate(req.params.id, {
@@ -89,6 +90,7 @@ exports.updateUser = async (req, res) => {
       city,
       aboutMe,
       postalCode,
+      myPreferences,
     });
     return res.status(201).json({
       msg: "L'utilisateur a été modifié avec succès",

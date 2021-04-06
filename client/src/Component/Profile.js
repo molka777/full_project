@@ -70,6 +70,19 @@ const Profile = ({ match }) => {
     dispatch(getProfile());
   }, [dispatch, editDone]);
 
+  //Render the User's Age depending on his birthday
+
+  function getAge(birthday) {
+    var today = new Date();
+    var birthDate = new Date(birthday);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
   return loading ? (
     <h1>Loading ...</h1>
   ) : !isAuth ? (
@@ -105,7 +118,7 @@ const Profile = ({ match }) => {
                 </Button>
                 <Button
                   className="float-right"
-                  color="default"
+                  color="danger"
                   onClick={() => dispatch(logout())}
                   size="sm"
                 >
@@ -120,7 +133,9 @@ const Profile = ({ match }) => {
               <div className="text-center">
                 <h3>
                   {name}
-                  <span className="font-weight-light">{birthday}</span>
+                  <span className="font-weight-light">
+                    , {getAge(birthday)}
+                  </span>
                 </h3>
                 <div className="h5 font-weight-300">
                   <i className="ni location_pin mr-2" />
