@@ -1,9 +1,9 @@
-const User = require('../model/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const Preferences = require('../model/Preferences');
-const secretOrkey = config.get('secretOrkey');
+const User = require("../model/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
+const Preferences = require("../model/Preferences");
+const secretOrkey = config.get("secretOrkey");
 
 //Register User
 exports.register = async (req, res) => {
@@ -69,12 +69,26 @@ exports.login = async (req, res) => {
 //Update User
 exports.updateUser = async (req, res) => {
   try {
-    const { name, email, phoneNumber } = req.body;
+    const {
+      name,
+      email,
+      phoneNumber,
+      birthday,
+      adress,
+      city,
+      aboutMe,
+      postalCode,
+    } = req.body;
 
     await User.findByIdAndUpdate(req.params.id, {
       name,
       email,
       phoneNumber,
+      birthday,
+      adress,
+      city,
+      aboutMe,
+      postalCode,
     });
     return res.status(201).json({
       msg: "L'utilisateur a été modifié avec succès",
@@ -179,7 +193,7 @@ exports.addMyPreferences = async (req, res) => {
   const userId = req.params.id;
   const { preferenceId, preferenceName } = req.body;
   console.log(
-    '🚀 ~ file: user.controller.js ~ line 181 ~ exports.addMyPreferences= ~ preferenceId',
+    "🚀 ~ file: user.controller.js ~ line 181 ~ exports.addMyPreferences= ~ preferenceId",
     preferenceId
   );
   // console.log(req.body);
@@ -197,7 +211,7 @@ exports.addMyPreferences = async (req, res) => {
     const user = await User.findByIdAndUpdate(userId, searchedUser, {
       new: true,
       useFindAndModify: false,
-    }).populate('preferences', 'themes');
+    }).populate("preferences", "themes");
 
     return res.status(200).json(user);
   } catch (error) {

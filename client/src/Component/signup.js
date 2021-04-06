@@ -19,7 +19,7 @@ import {
   InputGroup,
   Row,
   Col,
-} from "reactstrap"
+} from "reactstrap";
 
 const Signup = () => {
   const loading = useSelector((state) => state.userReducer.loading);
@@ -30,7 +30,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(null);
   const alert = useAlert();
-
 
   const addUser = (e) => {
     e.preventDefault();
@@ -43,7 +42,6 @@ const Signup = () => {
       })
     );
   };
-
 
   function handleSubmit(e) {
     if (!email && !name && !phoneNumber)
@@ -114,12 +112,12 @@ const Signup = () => {
                       <img
                         alt="..."
                         src={
-                          require("../Assets/img/icons/common/github.svg")
+                          require("../Assets/img/icons/common/facebook.svg")
                             .default
                         }
                       />
                     </span>
-                    <span className="btn-inner--text">Github</span>
+                    <span className="btn-inner--text">Facebook</span>
                   </Button>
                   <Button
                     className="btn-neutral btn-icon"
@@ -206,7 +204,9 @@ const Signup = () => {
                   <div className="text-muted font-italic">
                     <small>
                       password strength:{" "}
-                      <span className="text-success font-weight-700">strong</span>
+                      <span className="text-success font-weight-700">
+                        strong
+                      </span>
                     </small>
                   </div>
                   <Row className="my-4">
@@ -223,23 +223,32 @@ const Signup = () => {
                         >
                           <span className="text-muted">
                             I agree with the{" "}
-                            <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                            <a
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                            >
                               Privacy Policy
-                        </a>
+                            </a>
                           </span>
                         </label>
                       </div>
                     </Col>
                   </Row>
                   <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button" onClick={handleSubmit}>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      type="button"
+                      onClick={handleSubmit}
+                    >
                       Create account
-                </Button>
+                    </Button>
                   </div>
                 </Form>
               </CardBody>
             </Card>
-          </Col></div>
+          </Col>
+        </div>
       )}
     </div>
   );

@@ -18,6 +18,21 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "user",
   },
+  birthday: {
+    type: Date,
+  },
+  adress: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  postalCode: {
+    type: String,
+  },
+  aboutMe: {
+    type: String,
+  },
   myPreferences: [
     {
       type: ObjectId,
