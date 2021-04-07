@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import { getProfile, logout, updateProfile } from "../JS/actions";
 import { InputGroup, FormControl } from "react-bootstrap";
 import { useAlert } from "react-alert";
+import FileUpload from "./FileUpload";
 import {
   Container,
   Card,
@@ -93,18 +94,7 @@ const Profile = ({ match }) => {
         <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
           <Card className="card-profile shadow">
             <Row className="justify-content-center">
-              <div className="col-md-8">
-                <div className="profile-img">
-                  <img
-                    src="https://images.unsplash.com/photo-1553867745-6e038d085e86?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8cG9ydHJhaXRzfGVufDB8MnwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-                    alt=""
-                  />
-                  <div className="file btn btn-lg btn-primary">
-                    Change Photo
-                    <input type="file" name="file" />
-                  </div>
-                </div>
-              </div>
+              <FileUpload />
             </Row>
             <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div className="d-flex justify-content-between">
