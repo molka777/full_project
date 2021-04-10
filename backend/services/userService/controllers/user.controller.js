@@ -194,22 +194,10 @@ exports.addPreferences = async (req, res) => {
 exports.addMyPreferences = async (req, res) => {
   const userId = req.params.id;
   const { preferenceId, preferenceName } = req.body;
-  console.log(
-    "🚀 ~ file: user.controller.js ~ line 181 ~ exports.addMyPreferences= ~ preferenceId",
-    preferenceId
-  );
-  // console.log(req.body);
 
   try {
     const searchedUser = await User.findOne({ _id: userId });
     searchedUser.myPreferences.push(preferenceId);
-
-    // const searchPref = await Preferences.find({});
-    // console.log(searchPref);
-
-    // const searchPref = Preferences.find({});
-    // await searchPref.forEach((doc) => console.log(doc));
-
     const user = await User.findByIdAndUpdate(userId, searchedUser, {
       new: true,
       useFindAndModify: false,

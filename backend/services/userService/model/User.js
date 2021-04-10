@@ -39,6 +39,12 @@ const userSchema = mongoose.Schema({
       ref: "preferences",
     },
   ],
+  myExperiences: [
+    {
+      type: ObjectId,
+      ref: "Experience",
+    },
+  ],
 });
 
 module.exports = User = mongoose.model("user", userSchema);

@@ -112,7 +112,7 @@ const Signup = () => {
                       <img
                         alt="..."
                         src={
-                          require("../Assets/img/icons/common/facebook.svg")
+                          require("../assets/img/icons/common/facebook.svg")
                             .default
                         }
                       />
@@ -129,7 +129,7 @@ const Signup = () => {
                       <img
                         alt="..."
                         src={
-                          require("../Assets/img/icons/common/google.svg")
+                          require("../assets/img/icons/common/google.svg")
                             .default
                         }
                       />

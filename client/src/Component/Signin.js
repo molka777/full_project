@@ -82,7 +82,7 @@ const Signin = () => {
                   <img
                     alt="..."
                     src={
-                      require("../Assets/img/icons/common/facebook.svg").default
+                      require("../assets/img/icons/common/facebook.svg").default
                     }
                   />
                 </span>
@@ -98,7 +98,7 @@ const Signin = () => {
                   <img
                     alt="..."
                     src={
-                      require("../Assets/img/icons/common/google.svg").default
+                      require("../assets/img/icons/common/google.svg").default
                     }
                   />
                 </span>

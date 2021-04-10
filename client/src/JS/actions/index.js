@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 import {
   GET_PROFILE,
@@ -21,14 +21,32 @@ import {
   ADD_PREFERENCES,
   ADD_PREFERENCES_SUCCESS,
   ADD_PREFERENCES_FAIL,
-} from '../constants/action-types';
+} from "../constants/action-types";
+import {
+  FETCH_ALL_EXPERIENCES,
+  FETCH_ALL_EXPERIENCES_SUCCESS,
+  FETCH_ALL_EXPERIENCES_FAIL,
+  FETCH_EXPERIENCE_DETAILS,
+  FETCH_EXPERIENCE_DETAILS_SUCCESS,
+  FETCH_EXPERIENCE_DETAILS_FAIL,
+  ADD_EXPERIENCE,
+  ADD_EXPERIENCE_SUCCESS,
+  ADD_EXPERIENCE_FAIL,
+  CLEAR_ERRORS,
+  UPDATE_EXPERIENCE_FAIL,
+  UPDATE_EXPERIENCE_SUCCESS,
+  UPDATE_EXPERIENCE,
+  DELETE_EXPERIENCE,
+  DELETE_EXPERIENCE_SUCCESS,
+  DELETE_EXPERIENCE_FAIL,
+} from "../constants/experienceConstants";
 
 const register = (newUser) => async (dispatch) => {
   dispatch({
     type: REGISTER_USER,
   });
   try {
-    const addRes = await axios.post('/user/register', newUser);
+    const addRes = await axios.post("/user/register", newUser);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: addRes.data,
@@ -49,8 +67,8 @@ export const login = (cred) => async (dispatch) => {
   });
 
   try {
-    const loginRes = await axios.post('/user/login', cred);
-    localStorage.setItem('token', loginRes.data.token);
+    const loginRes = await axios.post("/user/login", cred);
+    localStorage.setItem("token", loginRes.data.token);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: loginRes.data,
@@ -64,7 +82,7 @@ export const login = (cred) => async (dispatch) => {
 };
 
 export const getProfile = () => async (dispatch) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const config = {
     headers: {
       Authorization: token,
@@ -74,7 +92,7 @@ export const getProfile = () => async (dispatch) => {
     type: GET_PROFILE,
   });
   try {
-    const isAuth = await axios.get('/user/current', config);
+    const isAuth = await axios.get("/user/current", config);
     dispatch({
       type: GET_PROFILE_SUCCESS,
       payload: isAuth.data,
@@ -88,7 +106,7 @@ export const getProfile = () => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
   dispatch({
     type: LOGOUT,
   });
@@ -116,7 +134,7 @@ export const updateProfile = (id, updatedProfile) => async (dispatch) => {
 export const getUsers = () => async (dispatch) => {
   dispatch({ type: FETCH_ALL_USERS });
   try {
-    const { data } = await axios.get('/user/users');
+    const { data } = await axios.get("/user/users");
     dispatch({
       type: FETCH_ALL_USERS_SUCCESS,
       payload: data,
@@ -131,7 +149,7 @@ export const getUsers = () => async (dispatch) => {
 
 export const seePreferences = () => async (dispatch) => {
   try {
-    const preferences = await axios.get('/user/preferences');
+    const preferences = await axios.get("/user/preferences");
     dispatch({
       type: SEE_ALL_PREFERENCES,
       payload: preferences.data,
@@ -160,4 +178,102 @@ export const addPreferences = (userId, preferenceId) => async (dispatch) => {
       payload: error.response,
     });
   }
+};
+
+export const addExperience = (newExperience) => async (dispatch) => {
+  dispatch({
+    type: ADD_EXPERIENCE,
+  });
+  try {
+    const addRes = await axios.post("api/experience", newExperience);
+    dispatch({
+      type: ADD_EXPERIENCE_SUCCESS,
+      payload: addRes.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADD_EXPERIENCE_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+export const getExperiences = () => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_ALL_EXPERIENCES });
+    const { data } = await axios.get("/api/experience");
+    dispatch({
+      type: FETCH_ALL_EXPERIENCES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_ALL_EXPERIENCES_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+export const getExperienceDetails = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_EXPERIENCE_DETAILS });
+  try {
+    const { data } = await axios.get(`/api/experience/${id}`);
+    dispatch({
+      type: FETCH_EXPERIENCE_DETAILS_SUCCESS,
+      payload: data.experience,
+    });
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: experienceActions.js ~ line 38 ~ getExperienceDetails ~ error",
+      error
+    );
+    dispatch({
+      type: FETCH_EXPERIENCE_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+//delete experience
+export const deleteExperience = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_EXPERIENCE });
+  try {
+    const { data } = await axios.delete(`/api/experience/${id}`);
+    dispatch({
+      type: DELETE_EXPERIENCE_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: experienceActions.js ~ line 38 ~ getExperienceDetails ~ error",
+      error
+    );
+    dispatch({
+      type: DELETE_EXPERIENCE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+export const updateExperience = (id, updatedExperience) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UPDATE_EXPERIENCE,
+    });
+
+    const { data } = await axios.put(
+      `/api/experience/${id}`,
+      updatedExperience
+    );
+    dispatch({
+      type: UPDATE_EXPERIENCE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_EXPERIENCE_FAIL,
+    });
+  }
+};
+//clear Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };
