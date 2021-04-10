@@ -102,16 +102,42 @@ const SecondStep = ({
               className="header-body border"
               style={{ padding: "2%", margin: "1%" }}
             >
-              {/* button exit */}
-              <Button
-                onClick={toggle}
-                style={{
-                  padding: "0.5% 0.5% 0%",
-                  float: "right",
-                }}
-              >
-                <i className="ni ni-fat-remove" />
-              </Button>
+              {/* end button exit */}
+
+              {experience.type &&
+              experience.title &&
+              experience.startHour &&
+              experience.program ? (
+                <Link
+                  to="/experiences"
+                  style={{ float: "right" }}
+                  className=" btn btn-sm"
+                  onClick={() => {
+                    dispatch(
+                      updateExperience(id, {
+                        ...experience,
+                        title: title,
+                        themes: [...theme],
+                        activity: activity,
+                        price: price,
+                      })
+                    );
+                  }}
+                >
+                  Enregistrer et quitter
+                </Link>
+              ) : (
+                <Button
+                  onClick={toggle}
+                  style={{
+                    padding: "0.5% 0.5% 0%",
+                    float: "right",
+                  }}
+                >
+                  <i className="ni ni-fat-remove" />
+                </Button>
+              )}
+
               {/* end button exit */}
               {/* Modal */}
               <Modal isOpen={modal} toggle={toggle}>

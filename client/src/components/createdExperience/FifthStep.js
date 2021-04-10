@@ -49,8 +49,12 @@ const FifthStep = ({
     if (experience) {
       if (experience.program) {
         setProgram(experience.program.generalDesc);
-        setExcludedEq(experience.excludedEq);
+      }
+      if (experience.includedEq) {
         setIncludedEq(experience.includedEq);
+      }
+      if (experience.excludedEq) {
+        setExcludedEq(experience.excludedEq);
       }
     }
   }, [experience]);
@@ -74,15 +78,43 @@ const FifthStep = ({
               style={{ padding: "2%", margin: "1%" }}
             >
               {/* button exit */}
-              <Button
-                onClick={toggle}
-                style={{
-                  padding: "0.5% 0.5% 0%",
-                  float: "right",
-                }}
-              >
-                <i className="ni ni-fat-remove" />
-              </Button>
+              {experience.type &&
+              experience.title &&
+              experience.startHour &&
+              experience.program ? (
+                <Link
+                  to="/experiences"
+                  style={{ float: "right" }}
+                  className=" btn btn-sm"
+                  onClick={() => {
+                    dispatch(
+                      updateExperience(id, {
+                        ...experience,
+                        program: { generalDesc: program.generalDesc },
+                        excludedEq: { ...excludedEq },
+                        includedEq: { ...includedEq },
+                        isValidated: false,
+                        isBeingValidated: false,
+                        isPublished: false,
+                        isCreated: true,
+                      })
+                    );
+                  }}
+                >
+                  Enregistrer et quitter
+                </Link>
+              ) : (
+                <Button
+                  onClick={toggle}
+                  style={{
+                    padding: "0.5% 0.5% 0%",
+                    float: "right",
+                  }}
+                >
+                  <i className="ni ni-fat-remove" />
+                </Button>
+              )}
+
               {/* modal */}
               <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>
@@ -242,6 +274,8 @@ const FifthStep = ({
                                   defaultValue={
                                     experience.includedEq
                                       ? experience.includedEq.food
+                                        ? experience.includedEq.food
+                                        : includedEq.food
                                       : includedEq.food
                                   }
                                   placeholder="Entrez ici la nourriture"
@@ -278,6 +312,8 @@ const FifthStep = ({
                                   defaultValue={
                                     experience.includedEq
                                       ? experience.includedEq.drink
+                                        ? experience.includedEq.drink
+                                        : includedEq.drink
                                       : includedEq.drink
                                   }
                                   placeholder="Entrez ici les boissons"
@@ -316,6 +352,8 @@ const FifthStep = ({
                                   defaultValue={
                                     experience.includedEq
                                       ? experience.includedEq.material
+                                        ? experience.includedEq.material
+                                        : includedEq.material
                                       : includedEq.material
                                   }
                                   placeholder="Entrez ici le matériel"
@@ -378,6 +416,8 @@ const FifthStep = ({
                                   defaultValue={
                                     experience.excludedEq
                                       ? experience.excludedEq.food
+                                        ? experience.excludedEq.food
+                                        : excludedEq.food
                                       : excludedEq.food
                                   }
                                   placeholder="Entrez ici la nourriture"
@@ -414,6 +454,8 @@ const FifthStep = ({
                                   defaultValue={
                                     experience.excludedEq
                                       ? experience.excludedEq.drink
+                                        ? experience.excludedEq.drink
+                                        : excludedEq.drink
                                       : excludedEq.drink
                                   }
                                   placeholder="Entrez ici les boissons"
@@ -452,6 +494,8 @@ const FifthStep = ({
                                   defaultValue={
                                     experience.excludedEq
                                       ? experience.excludedEq.material
+                                        ? experience.excludedEq.material
+                                        : excludedEq.material
                                       : excludedEq.material
                                   }
                                   placeholder="Entrez ici le matériel"
@@ -494,7 +538,7 @@ const FifthStep = ({
                       dispatch(
                         updateExperience(id, {
                           ...experience,
-                          program: { ...program },
+                          program: { generalDesc: program.generalDesc },
                           excludedEq: { ...excludedEq },
                           includedEq: { ...includedEq },
                           isValidated: false,

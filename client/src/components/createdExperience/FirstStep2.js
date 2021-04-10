@@ -68,15 +68,35 @@ const FirstStep2 = ({
               className="header-body border"
               style={{ padding: "2%", margin: "1%" }}
             >
-              <Button
-                onClick={toggle}
-                style={{
-                  padding: "0.5% 0.5% 0%",
-                  float: "right",
-                }}
-              >
-                <i className="ni ni-fat-remove" />
-              </Button>
+              {experience.type &&
+              experience.title &&
+              experience.startHour &&
+              experience.program ? (
+                <Link
+                  to="/experiences"
+                  style={{ float: "right" }}
+                  className=" btn btn-sm"
+                  onClick={() => {
+                    updateExperience(id, {
+                      ...experience,
+                      type: { title: type },
+                    });
+                  }}
+                >
+                  Enregistrer et quitter
+                </Link>
+              ) : (
+                <Button
+                  onClick={toggle}
+                  style={{
+                    padding: "0.5% 0.5% 0%",
+                    float: "right",
+                  }}
+                >
+                  <i className="ni ni-fat-remove" />
+                </Button>
+              )}
+
               <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>
                   Abandonner la création ?
@@ -308,7 +328,8 @@ const FirstStep2 = ({
                     console.log(experience);
 
                     dispatch(
-                      updateExperience(experience._id, {
+                      updateExperience(id, {
+                        ...experience,
                         type: { title: type },
                       })
                     );

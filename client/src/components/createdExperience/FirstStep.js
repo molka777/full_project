@@ -298,6 +298,7 @@ const FirstStep = () => {
 
                     dispatch(
                       updateExperience(experience.experience._id, {
+                        ...experience,
                         type: { title: type },
                       })
                     );

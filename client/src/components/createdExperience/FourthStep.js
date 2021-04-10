@@ -113,15 +113,44 @@ const FourthStep = ({
               style={{ padding: "2%", margin: "1%" }}
             >
               {/* exit button */}
-              <Button
-                onClick={toggle}
-                style={{
-                  padding: "0.5% 0.5% 0%",
-                  float: "right",
-                }}
-              >
-                <i className="ni ni-fat-remove" />
-              </Button>
+              {experience.type &&
+              experience.title &&
+              experience.startHour &&
+              experience.program ? (
+                <Link
+                  to="/experiences"
+                  style={{ float: "right" }}
+                  className=" btn btn-sm"
+                  onClick={() => {
+                    dispatch(
+                      updateExperience(id, {
+                        ...experience,
+                        city: city,
+                        type: {
+                          ...experience.type,
+                          location: location,
+                          assemblyPoint: assemblyPoint,
+                        },
+                        endHour: endHour,
+                        startHour: startHour,
+                      })
+                    );
+                  }}
+                >
+                  Enregistrer et quitter
+                </Link>
+              ) : (
+                <Button
+                  onClick={toggle}
+                  style={{
+                    padding: "0.5% 0.5% 0%",
+                    float: "right",
+                  }}
+                >
+                  <i className="ni ni-fat-remove" />
+                </Button>
+              )}
+
               {/* modal  */}
               <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>

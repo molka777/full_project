@@ -106,15 +106,41 @@ const ThirdStep = ({
                 style={{ padding: "2%", margin: "1%" }}
               >
                 {/* exit button */}
-                <Button
-                  onClick={toggle}
-                  style={{
-                    padding: "0.5% 0.5% 0%",
-                    float: "right",
-                  }}
-                >
-                  <i className="ni ni-fat-remove" />
-                </Button>
+
+                {experience.type &&
+                experience.title &&
+                experience.startHour &&
+                experience.program ? (
+                  <Link
+                    to="/experiences"
+                    style={{ float: "right" }}
+                    className=" btn btn-sm"
+                    onClick={() => {
+                      dispatch(
+                        updateExperience(id, {
+                          ...experience,
+                          target: target,
+                          difficulty: difficulty,
+                          limitParticipants: limitParticipants,
+                          language: language,
+                          phobia: phobia,
+                        })
+                      );
+                    }}
+                  >
+                    Enregistrer et quitter
+                  </Link>
+                ) : (
+                  <Button
+                    onClick={toggle}
+                    style={{
+                      padding: "0.5% 0.5% 0%",
+                      float: "right",
+                    }}
+                  >
+                    <i className="ni ni-fat-remove" />
+                  </Button>
+                )}
                 {/* modal exit */}
                 <Modal isOpen={modal} toggle={toggle}>
                   <ModalHeader toggle={toggle}>

@@ -68,7 +68,7 @@ const ExperienceModel = ({ experience }) => {
                     <CardText>{experience.title}</CardText>
                     <Row>
                       <Link
-                        to={`/experience/${experience._id}`}
+                        to={`/first/${experience._id}`}
                         className="btn btn-sm btn-outline-secondary"
                         style={{
                           color: "#525f7f",
